@@ -14,6 +14,14 @@ npm install --save express
 4) installer Mongoose
 npm install --save mongoose
 
+5) installer bcrypt
+npm install bcrypt
+
+6) installer json webtoken
+
+7) installer mongoose unique validator
+npm install --save mongoose-unique-validator
+
 À partir de la version 4.16 d'Express, bodyparser est inclus et vous
 n'avez pas besoin de l'installer.
 Utilisez ( express.json() ) pour analyser le corps de la requête.
