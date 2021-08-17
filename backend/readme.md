@@ -22,6 +22,9 @@ npm install bcrypt
 7) installer mongoose unique validator
 npm install --save mongoose-unique-validator
 
+8) installer Multer pour la gestion des images:
+npm install --save multer
+
 À partir de la version 4.16 d'Express, bodyparser est inclus et vous
 n'avez pas besoin de l'installer.
 Utilisez ( express.json() ) pour analyser le corps de la requête.

@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //Ce middleware sert à gérer les requêtes get d'images
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Ces middlewares contiennent le début des routes à appliquer aux stuffRoutes et userRoutes. et se servent des routes contenues dans les fichiers routeurs pour traiter les requêtes.
 //app.use('/api/stuff', stuffRoutes)
