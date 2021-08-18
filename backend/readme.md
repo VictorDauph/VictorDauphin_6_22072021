@@ -1,3 +1,4 @@
+Si vous avez téléchargée l'application depuis le repo github.
 L'API a besoin de plusieurs modules pour fonctionner correctement, elle est basée sur un server node et utilise le framework Express pour gérer le serveur et Mongoose pour gérer la Base de données. 
 
 Dans le dossier backend, depuis le terminal:
@@ -18,6 +19,7 @@ npm install --save mongoose
 npm install bcrypt
 
 6) installer json webtoken
+npm install jsonwebtoken
 
 7) installer mongoose unique validator
 npm install --save mongoose-unique-validator
