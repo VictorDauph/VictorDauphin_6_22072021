@@ -1,6 +1,13 @@
 // cette ligne sert à utiliser l'objet http qui sert à créer un serveur. Si on mets en Https, comment on ajoute un certificat de sécurité? Peut-être pas pertinent tout de suite.
 const http = require('http'); 
-//Cette ligne appelle le fichier app.js qui contient le framework Express
+
+//Cette ligne appelle le plugin dotenv qui sécurise l'environnement du serveur
+require('dotenv').config()
+
+//défini le port par défaut du serveur backend comme celui défini dans le fichier .env
+const portenv = process.env.PORT;
+
+//Cette ligne appelle le fichier app.js qui contient le framework Express et pilote le serveur
 const app = require('./app');
 
 //Cette fonction renvoie un port valide
@@ -17,7 +24,7 @@ const normalizePort = val => {
   };
 
 //Cette ligne indique que le framework Express doit fonctionner sur le port indiqué
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || portenv); //portenv est la variable PORT dans le fichier .env
 app.set('port', port);
 
 //error handler cherche les différentes erreures et les gère de manière appropriée

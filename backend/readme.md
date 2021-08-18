@@ -25,6 +25,26 @@ npm install --save mongoose-unique-validator
 8) installer Multer pour la gestion des images:
 npm install --save multer
 
+9) installer dotenv (sécurisation environnement)
+    9.1) npm i dotenv
+    9.2) créer un fichier nommé ".env" à la racine du dossier qui contient les variables:
+
+    PORT = 3000 (valeur 3000 par défaut)
+    DB_STRING = "mongodb+srv://Victor:Victor@piiquante.iqjgk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    (string de connection à la BDD)
+
+10) installer helmet.js
+npm install helmet --save
+
+11) installer password-validator
+npm install password-validator
+
+12) installer express-mongo-sanitize
+npm install express-mongo-sanitize
+
+13) installer express Rate Limit
+npm install --save express-rate-limit
+
 À partir de la version 4.16 d'Express, bodyparser est inclus et vous
 n'avez pas besoin de l'installer.
 Utilisez ( express.json() ) pour analyser le corps de la requête.

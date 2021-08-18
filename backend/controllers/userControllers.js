@@ -1,5 +1,6 @@
 //importation du package bcrypt pour cryptage mots de passe
 const bcrypt = require('bcrypt');
+
 //importation du package de génération de tokens
 const jwt = require('jsonwebtoken');
 
@@ -8,6 +9,7 @@ const User = require('../models/userModels');
 
 //importe le plugin password-validator
 const passwordValidator = require('password-validator');
+const app = require('../app');
 
 //créé un schéma de données pour mots de passes
 const schemaPassword = new passwordValidator();
@@ -27,13 +29,13 @@ exports.signup = (req, res, next) => {
     const passwordValidation = schemaPassword.validate(req.body.password)
     if (passwordValidation === true)
         {
-            console.log('mot de passe valide')
             bcrypt.hash(req.body.password, 10) //méthode asynchrone de cryptage du mot de passe
             .then( hash => {
                 const user = new User ({ //User est le schéma de données créé dans userModels, hash est le hash du mot de passe crée et crypté
                     email:req.body.email,
                     password: hash
                 });
+                console.log(user);
                 user.save()
                 .then(() => res.status(201).json({message: 'utilisateur créé'}))
                 .catch(error => res.status(400).json({error}));

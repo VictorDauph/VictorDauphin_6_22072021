@@ -1,6 +1,9 @@
 // Cette ligne intègre express au projet
 const express = require('express');
 
+//Cette ligne appelle le plugin dotenv qui sécurise l'environnement du serveur
+require('dotenv').config()
+
 //Cette ligne importe helmetJS: sécurisation des headers.
 const helmet = require("helmet");
 
@@ -17,11 +20,23 @@ const userRoutes = require('./routes/userRoutes.js');
 // Cette ligne indique qu'on peut appeler Express avec la constante app
 const app = express();
 
-//Cette ligne indique à express d'utiliser helmetJS pour sécuriser les headers:
-app.use(helmet());
+//importe le plugin mongo-sanitize, empêche les injections NoSQL
+const mongoSanitize = require('express-mongo-sanitize');
+
+//importe le rate limiter pour protéger des attaques force brute
+const rateLimit = require("express-rate-limit");
+
+
+// Ce code sert à limiter le nombre de connections d'un utilisateur unique
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, //15 minutes
+  max: 100, //chaque IP est limitée à 100 requétes
+})
+
 
 //Ce code sert à se connecter au serveur MongoDB Atlas qui gère la bAse de Donnée
-mongoose.connect("mongodb+srv://Victor:Victor@piiquante.iqjgk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+const dbString = process.env.DB_STRING //définit le string de connection à la base de donnée comme celui contenu dans le fichier .env
+mongoose.connect(dbString, //DB_STRING dans le fichier .env
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -29,7 +44,7 @@ mongoose.connect("mongodb+srv://Victor:Victor@piiquante.iqjgk.mongodb.net/myFirs
 
 //Ce middleware indique dans la console du serveur qu'une requête a été reçue.
 app.use((req, res, next) => {
-  console.log('Requête reçue!');
+  console.log('Requête reçue!')
   next();
 });
 
@@ -42,7 +57,12 @@ app.use((req, res, next) => {
 });
 
 //Ce middleware parse le body de toutes les requêtes en JSON pour être utilisables.
-app.use(express.json());
+app.use(
+  limiter,
+  helmet(), //helmetJS pour sécuriser les headers
+  express.json(),
+  mongoSanitize() //MongoSanitize bloque les injections SQL
+);
 
 //Ce middleware sert à gérer les requêtes get d'images
 app.use('/images', express.static(path.join(__dirname, 'images')));
