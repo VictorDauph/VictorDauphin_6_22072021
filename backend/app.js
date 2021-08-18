@@ -1,6 +1,9 @@
 // Cette ligne intègre express au projet
 const express = require('express');
 
+//Cette ligne importe helmetJS: sécurisation des headers.
+const helmet = require("helmet");
+
 //Cette ligne importe Mongoose
 const mongoose = require('mongoose');
 
@@ -13,6 +16,9 @@ const userRoutes = require('./routes/userRoutes.js');
 
 // Cette ligne indique qu'on peut appeler Express avec la constante app
 const app = express();
+
+//Cette ligne indique à express d'utiliser helmetJS pour sécuriser les headers:
+app.use(helmet());
 
 //Ce code sert à se connecter au serveur MongoDB Atlas qui gère la bAse de Donnée
 mongoose.connect("mongodb+srv://Victor:Victor@piiquante.iqjgk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",

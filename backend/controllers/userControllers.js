@@ -3,22 +3,49 @@ const bcrypt = require('bcrypt');
 //importation du package de génération de tokens
 const jwt = require('jsonwebtoken');
 
-//importation schéma de données
+//importation schéma de données utilisateur
 const User = require('../models/userModels');
+
+//importe le plugin password-validator
+const passwordValidator = require('password-validator');
+
+//créé un schéma de données pour mots de passes
+const schemaPassword = new passwordValidator();
+
+//définir les propriétés du schéma de mots de passes
+schemaPassword
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                              // Must have lowercase letters
+.has().digits(1)                                // Must have at least 1 digit
+.has().not().spaces()                           // Should not have spaces
+.is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
 
 //fonction de création de compte
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10) //méthode asynchrone de cryptage du mot de passe
-    .then( hash => {
-        const user = new User ({ //User est le schéma de données créé dans userModels, hash est le hash du mot de passe crée et crypté
-            email:req.body.email,
-            password: hash
-        });
-        user.save()
-        .then(() => res.status(201).json({message: 'utilisateur créé'}))
-        .catch(error => res.status(400).json({error}));
-    })
-    .catch(error => res.status(500).json({error}));
+    const passwordValidation = schemaPassword.validate(req.body.password)
+    if (passwordValidation === true)
+        {
+            console.log('mot de passe valide')
+            bcrypt.hash(req.body.password, 10) //méthode asynchrone de cryptage du mot de passe
+            .then( hash => {
+                const user = new User ({ //User est le schéma de données créé dans userModels, hash est le hash du mot de passe crée et crypté
+                    email:req.body.email,
+                    password: hash
+                });
+                user.save()
+                .then(() => res.status(201).json({message: 'utilisateur créé'}))
+                .catch(error => res.status(400).json({error}));
+            })
+            .catch(error => res.status(500).json({error}));
+        }
+    else
+        {
+            const error = schemaPassword.validate(req.body.password, { list: true })
+            res.status(500).json({error});
+        }
+
 };
 
 //Fonction de login utilisateur

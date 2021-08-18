@@ -1,4 +1,4 @@
-// cette ligne sert à utiliser l'objet http qui sert à créer un serveur
+// cette ligne sert à utiliser l'objet http qui sert à créer un serveur. Si on mets en Https, comment on ajoute un certificat de sécurité? Peut-être pas pertinent tout de suite.
 const http = require('http'); 
 //Cette ligne appelle le fichier app.js qui contient le framework Express
 const app = require('./app');
