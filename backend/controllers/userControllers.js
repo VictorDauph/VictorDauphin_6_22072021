@@ -9,7 +9,6 @@ const User = require('../models/userModels');
 
 //importe le plugin password-validator
 const passwordValidator = require('password-validator');
-const app = require('../app');
 
 //créé un schéma de données pour mots de passes
 const schemaPassword = new passwordValidator();
@@ -35,7 +34,6 @@ exports.signup = (req, res, next) => {
                     email:req.body.email,
                     password: hash
                 });
-                console.log(user);
                 user.save()
                 .then(() => res.status(201).json({message: 'utilisateur créé'}))
                 .catch(error => res.status(400).json({error}));

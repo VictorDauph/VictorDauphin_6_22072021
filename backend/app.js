@@ -14,7 +14,7 @@ const mongoose = require('mongoose');
 const path = require ('path');
 
 //Importation des routers
-//const stuffRoutes = require('./routes/stuff.js');
+const saucesRoutes = require('./routes/saucesRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 
 // Cette ligne indique qu'on peut appeler Express avec la constante app
@@ -68,7 +68,7 @@ app.use(
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Ces middlewares contiennent le début des routes à appliquer aux stuffRoutes et userRoutes. et se servent des routes contenues dans les fichiers routeurs pour traiter les requêtes.
-//app.use('/api/stuff', stuffRoutes)
+app.use('/api/sauces', saucesRoutes)
 app.use('/api/auth', userRoutes)
 
 module.exports = app;

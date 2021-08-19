@@ -1,3 +1,6 @@
+//ce fichier est un brouillon non utilisé
+
+
 //importe le plugin password-validator
 const passwordValidator = require('password-validator');
 
