@@ -31,10 +31,13 @@ exports.likeSauce= (req, res, next) =>{
     else if (likevalue == 0)
       {
         const indexToRemoveFromLikes = newUsersLiked.indexOf(userId)
-        newUsersLiked.splice(indexToRemoveFromLikes,1)
+        if (indexToRemoveFromLikes !== -1 )
+          {newUsersLiked.splice(indexToRemoveFromLikes,1)}
         const newLikes = newUsersLiked.length
         const indexToRemoveFromDislikes = newUsersDisliked.indexOf(userId)
-        newUsersDisliked.splice(indexToRemoveFromDislikes,1)
+        if (indexToRemoveFromDislikes !== -1 )
+          {newUsersDisliked.splice(indexToRemoveFromDislikes,1)}
+        console.log("indexdislikes",indexToRemoveFromDislikes,"indexlikes",indexToRemoveFromLikes)
         const newDislikes = newUsersDisliked.length
         Sauce.updateOne({_id: req.params.id},{
           likes: newLikes,
