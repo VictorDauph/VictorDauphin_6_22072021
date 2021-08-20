@@ -35,6 +35,7 @@ npm install --save multer
     PORT = #Port du serveur backend (3000 par défaut)
     SECRET_KEY = #Une clé secrète et aléatoire propre à l'environnement pour crypter les tokens
     MAX_REQUESTS = #nombre max de requêtes autorisées par adresses IP 100 par défauts sur un serveur de développement (sur une période de 15min)
+    TOKEN_VALIDITY = "24h" #validité des tokens d'identification (24h par défaut)
 
 10) installer helmet.js
 npm install helmet --save

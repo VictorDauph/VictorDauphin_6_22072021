@@ -1,9 +1,6 @@
 //Cette ligne importe les schéma de donnée Sauce dans saucesModels.js
 const Sauce= require('../models/saucesModels');
 
-//Cette ligne importe les schéma de donnée likes dans likeModels.js
-const Like= require('../models/likeModels');
-
 //Cette ligne importe file system, qui permet de gérer des fichiers (notemment pour la suppression d'images du dossier images)
 const fs = require('fs');
 

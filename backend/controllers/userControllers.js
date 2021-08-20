@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken');
 //Importation clé secrète de cryptage des tokens contenu dans le fichier .env.
 const secretKey = process.env.SECRET_KEY;
 
+//Importation de la durée de validité d'un toker
+const tokenValidity = process.env.TOKEN_VALIDITY;
+
 //importation schéma de données utilisateur
 const User = require('../models/userModels');
 
@@ -46,7 +49,7 @@ exports.signup = (req, res, next) => {
     else
         {
             const error = schemaPassword.validate(req.body.password, { list: true })
-            res.status(500).json({error});
+            res.status(428).json({error});
         }
 
 };
@@ -68,7 +71,7 @@ exports.login = (req, res, next) => {
                 token: jwt.sign(
                     { userId:user._id}, //permet d'encoder l'information du user Id dans le token. Ce qui permettra de vérifier le user ID à la modification d'objets.
                     secretKey, //clé secrète d'encodage
-                    { expiresIn: '24h'} //configuration d'expiration du token.
+                    { expiresIn: tokenValidity} //configuration d'expiration du token.
                 )
             });
         })
