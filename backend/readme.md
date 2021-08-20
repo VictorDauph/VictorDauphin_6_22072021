@@ -31,9 +31,10 @@ npm install --save multer
     9.1) npm i dotenv
     9.2) créer un fichier nommé ".env" à la racine du dossier qui contient les variables:
 
-    PORT = 3000 (valeur 3000 par défaut)
-    DB_STRING = "mongodb+srv://Victor:Victor@piiquante.iqjgk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    (string de connection à la BDD)
+    DB_STRING = #string de connection à la BDD
+    PORT = #Port du serveur backend (3000 par défaut)
+    SECRET_KEY = #Une clé secrète et aléatoire propre à l'environnement pour crypter les tokens
+    MAX_REQUESTS = #nombre max de requêtes autorisées par adresses IP 100 par défauts sur un serveur de développement (sur une période de 15min)
 
 10) installer helmet.js
 npm install helmet --save

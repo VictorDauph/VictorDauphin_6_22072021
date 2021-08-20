@@ -25,12 +25,12 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 //importe le rate limiter pour protéger des attaques force brute
 const rateLimit = require("express-rate-limit");
-
+const maxRequests = process.env.MAX_REQUESTS;
 
 // Ce code sert à limiter le nombre de connections d'un utilisateur unique
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, //15 minutes
-  max: 100, //chaque IP est limitée à 100 requétes
+  max: maxRequests, //chaque IP est limitée à 100 requétes
 })
 
 

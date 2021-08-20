@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 //importation du package de génération de tokens
 const jwt = require('jsonwebtoken');
 
+//Importation clé secrète de cryptage des tokens contenu dans le fichier .env.
+const secretKey = process.env.SECRET_KEY;
+
 //importation schéma de données utilisateur
 const User = require('../models/userModels');
 
@@ -64,7 +67,7 @@ exports.login = (req, res, next) => {
                 userId: user._id,
                 token: jwt.sign(
                     { userId:user._id}, //permet d'encoder l'information du user Id dans le token. Ce qui permettra de vérifier le user ID à la modification d'objets.
-                    'SuuPthNrUjrN', //clé secrète d'encodage
+                    secretKey, //clé secrète d'encodage
                     { expiresIn: '24h'} //configuration d'expiration du token.
                 )
             });
