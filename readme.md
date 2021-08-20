@@ -4,4 +4,4 @@ Le serveur front-end a été précodé, les instructions d'installation et de la
 
 Le serveur back-end est le coeur du projet. Le but du projet est de coder l'API et de la relier à la partie front-end et à une base de donnée mongoDB Atlas (en ligne).
 
-Le serveur front-end a été précodé, les instructions d'installation et de lancement: ./backend/README.md
+Instructions de mise en route ./backend/readme.md
