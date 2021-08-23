@@ -79,18 +79,36 @@ exports.likeSauce= (req, res, next) =>{
     .catch(error => res.status(400).json({error}));
   };
 
+
 //Fonction de modification de sauces
   exports.modifySauce =  (req, res, next) =>{
+    Sauce.findOne({ _id: req.params.id}) 
+    .then( sauce => {
+      if (req.file != undefined)
+        { 
+          const filename = sauce.imageUrl.split('/images')[1]
+          console.log('image à supprimer',filename);
+          fs.unlink(`images/${filename}`, (err => {
+            if (err) console.log(err);
+            else {
+              //console.log(filename, "deleted");
+            }}))}
     const sauceObject = req.file ? // ? est l'opérateur ternaire, il vérifie l'existence de req.file
-    {
+    { 
       ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //Si le fichier existe on parse le requête et on génère une URL pour l'image.
     } : 
-    {...req.body}; //si le fichier n'existe pas on fait simplement une copie de rec.body
+    {...req.body}; //si le fichier n'existe pas on fait simplement une copie de req.body
     Sauce.updateOne({_id: req.params.id}, {...sauceObject, _id: req.params.id}) //update one prend 2 arguments. Le 1er c'est l'objet de comparaison, celui dont l'id est envoyé via la requête HTTP. Le 2ème c'est le nouvel objet. On doit réassigner le bon id pour être sûr d'avoir toujours le bon.
       .then(()=> res.status(200).json({message: 'objet modifié'}))
       .catch(error => res.status(400).json({error}));
-  };
+    
+    }) 
+
+    .catch(error => res.status(500).json({error})) 
+  }; 
+
+
 
 //fonction de suppression d'objets
   exports.deleteSauce = (req, res, next) =>{
@@ -98,6 +116,7 @@ exports.likeSauce= (req, res, next) =>{
     .then( sauce => {
       const filename = sauce.imageUrl.split('/images')[1] //filename récupère le nom du fichier à supprimer
       fs.unlink(`images/${filename}`, ()=> { //fs.unlink supprime le fichier image, puis le callback supprime l'objet
+        console.log('image à supprimer',filename)
         Sauce.deleteOne({_id: req.params.id})
         .then(() => res.status(200).json({ message: 'sauce supprimée'}))
         .catch(error => res.status(404).json({error}));
