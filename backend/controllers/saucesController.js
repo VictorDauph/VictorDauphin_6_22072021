@@ -116,7 +116,6 @@ exports.likeSauce= (req, res, next) =>{
     .then( sauce => {
       const filename = sauce.imageUrl.split('/images')[1] //filename récupère le nom du fichier à supprimer
       fs.unlink(`images/${filename}`, ()=> { //fs.unlink supprime le fichier image, puis le callback supprime l'objet
-        console.log('image à supprimer',filename)
         Sauce.deleteOne({_id: req.params.id})
         .then(() => res.status(200).json({ message: 'sauce supprimée'}))
         .catch(error => res.status(404).json({error}));
