@@ -1,6 +1,3 @@
-//ce fichier est un brouillon non utilisé
-
-
 //importe le plugin password-validator
 const passwordValidator = require('password-validator');
 
@@ -17,4 +14,6 @@ schemaPassword
 .has().not().spaces()                           // Should not have spaces
 .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
 
-console.log('type', schemaPassword.type)
+module.exports = schemaPassword
+
+
