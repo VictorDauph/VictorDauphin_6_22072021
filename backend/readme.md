@@ -41,7 +41,7 @@ npm install
 
 Lancer le serveur: depuis le terminal dans le dossier backend:
 
-nodemon server
+node server
 
 Si le serveur fonctionne le terminal doit afficher
 "Listening on port 3000"
