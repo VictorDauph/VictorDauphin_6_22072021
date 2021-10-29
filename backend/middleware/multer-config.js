@@ -1,6 +1,7 @@
 //importation de multure, package de gestion des fichiers
 const multer = require('multer');
 
+//Cette manière de gérer multer semble obsolète en 2021
 //dictionnaire des extensions de fichiers
 const MIME_TYPES = { 
     'image/jpg': 'jpg',
